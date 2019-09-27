@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/misselliev/js-library/issues"
   },
-  "homepage": "https://github.com/misselliev/js-library#readme"
+  "homepage": "https://github.com/misselliev/js-library#readme",
+  "dependencies": {
+    "semantic-ui": "^2.4.2"
+  }
 }

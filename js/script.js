@@ -1,4 +1,4 @@
-let bookArray = [];
+let collection = [];
 let counter = 0;
 let index = 0;
 
@@ -13,13 +13,13 @@ function Book(title, author, pages, status) {
 
 const addBook = (title, author, pages, status) => {
   const newBook = new Book(title, author, pages, status);
-  bookArray.push(newBook);
+  collection.push(newBook);
 }
 
 const deleteBook = (book) => {
-  let idx = bookArray.indexOf(book)
+  let idx = collection.indexOf(book)
   if (idx > -1) {
-    bookArray.splice(idx, 1);
+    collection.splice(idx, 1);
     counter--;
   }
 }
