@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="semantic/dist/semantic.min.css"
+    />
     <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
     <script src="semantic/dist/semantic.min.js"></script>
     <title>Library App</title>
-</head>
-<body>
-<script src="js/index.js"></script>
-<div class="ui container">
-  <br>
-  <div class="ui grid">
-    <div class="three wide column">
-      <div class="ui labeled button" tabindex="0">
-        <div class="ui red button">
-          <i class="heart icon"></i> Like
-        </div>
-        <a class="ui basic red left pointing label">
-          1,048
-        </a>
-      </div>
+  </head>
+  <body>
+    <div id="bookList">
+      <table class="ui celled table" id="books-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Status</th>
+            <th>Delete?</th>
+          </tr>
+        </thead>
+      </table>
     </div>
-
-    <div class="ten wide column">
-      <div class="ui labeled button" tabindex="0">
-        <div class="ui basic blue button" id="label-center">
-          <i class="fork icon"></i> Forks
-        </div>
-        <a class="ui basic left pointing blue label">
-          1,048
-        </a>
-      </div>
-    </div>
-
-    <div class="three wide column">
-      <div class="ui labeled button" tabindex="0">
-        <div class="ui basic blue button">
-          <i class="fork icon"></i> Forks
-        </div>
-        <a class="ui basic left pointing blue label">
-          1,048
-        </a>
-      </div>
-    </div>
-  </div>
-
-</div>
-</body>
+    <!-- <div class="ui container" id="add-book-form">
+      <form class="ui form">
+        <div class="field">
+          <label>Book Name</label>
+          <input type="text" name="book-name" placeholder="Book name" />
+        </div>
+        <div class="field">
+          <label>Author</label>
+          <input type="text" name="author-name" placeholder="Author" />
+        </div>
+        <div class="field">
+          <label>Year</label>
+          <input type="text" name="book-year" placeholder="Year" />
+        </div>
+        <div class="field">
+          <label>Pages</label>
+          <input type="text" name="book-pages" placeholder="Pages" />
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" tabindex="0" class="hidden" />
+            <label>I have read this book</label>
+          </div>
+        </div>
+        <button class="ui button" type="submit">Add Book</button>
+      </form>
+    </div> -->
+    <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>
