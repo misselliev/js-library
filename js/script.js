@@ -3,7 +3,7 @@ let counter = 0;
 let index = 0;
 
 function Book(title, author, pages, status = "Unread") {
-  index++;
+  this.index = index++;
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -21,7 +21,14 @@ const addBook = (title, author, pages, status) => {
 };
 
 const deleteBook = book => {
-  let idx = bookArray.indexOf(book);
+  let temp;
+  for (let i = 0; i < bookArray.length; i++) {
+    if (book == bookArray[i].index) {
+      temp = bookArray[i];
+      break;
+    }
+  }
+  let idx = bookArray.indexOf(temp);
   if (idx > -1) {
     bookArray.splice(idx, 1);
     counter--;
@@ -51,7 +58,24 @@ for (let i = 0; i < bookArray.length; i++) {
   cell_status.innerHTML += bookArray[i].status;
   let cell_button = document.createElement("td");
   row.appendChild(cell_button);
-  let delete_icon = document.createElement('i');
-  cell_button.appendChild(delete_icon);
-  delete_icon.className = 'alternate trash icon';
+  let button_icon = document.createElement("button");
+  cell_button.appendChild(button_icon);
+  let delete_icon = document.createElement("i");
+  button_icon.setAttribute("id", bookArray[i].index);
+  button_icon.className = "delete";
+  button_icon.innerHTML = "Delete";
+  button_icon.appendChild(delete_icon);
+  delete_icon.className = "alternate trash icon";
 }
+
+// Adding delete to buttons
+const bookButtons = document.querySelectorAll("#books-table .delete");
+const listItem = document.querySelectorAll("#books-table");
+Array.from(bookButtons).forEach(function(item) {
+  item.addEventListener("click", e => {
+    const a = e.target.parentElement;
+    const b = a.parentElement;
+    b.parentNode.removeChild(b);
+    deleteBook(parseInt(item.id));
+  });
+});
