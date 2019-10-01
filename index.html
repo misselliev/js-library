@@ -33,33 +33,40 @@
       </thead>
     </table>
     <!-- </div> -->
-    <!-- <div class="ui container" id="add-book-form">
-      <form class="ui form">
-        <div class="field">
-          <label>Book Name</label>
-          <input type="text" name="book-name" placeholder="Book name" />
-        </div>
-        <div class="field">
-          <label>Author</label>
-          <input type="text" name="author-name" placeholder="Author" />
-        </div>
-        <div class="field">
-          <label>Year</label>
-          <input type="text" name="book-year" placeholder="Year" />
-        </div>
-        <div class="field">
-          <label>Pages</label>
-          <input type="text" name="book-pages" placeholder="Pages" />
-        </div>
-        <div class="field">
-          <div class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" />
-            <label>I have read this book</label>
-          </div>
-        </div>
-        <button class="ui button" type="submit">Add Book</button>
-      </form>
-    </div> -->
+    <div class="ui container">
+      <form class="ui form" id="add-book-form" onsubmit="return false">
+        <div class="field">
+          <label>Book Name</label>
+          <input type="text" id="book-name" placeholder="Book name" />
+        </div>
+        <div class="field">
+          <label>Author</label>
+          <input type="text" id="author-name" placeholder="Author" />
+        </div>
+        <div class="field">
+          <label>Pages</label>
+          <input type="text" id="book-pages" placeholder="Pages" />
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input
+              type="checkbox"
+              tabindex="0"
+              class="hidden"
+              id="book-status"
+            />
+            <label>I have read this book</label>
+          </div>
+        </div>
+        <button
+          class="ui button addBook"
+          type="submit"
+          href="javascript:void(0);"
+        >
+          Add Book
+        </button>
+      </form>
+    </div>
     <script src="js/script.js"></script>
     <script src="js/index.js"></script>
   </body>

@@ -18,6 +18,7 @@ Book.prototype.updateStatus = () => {
 const addBook = (title, author, pages, status) => {
   const newBook = new Book(title, author, pages, status);
   bookArray.push(newBook);
+  return newBook;
 };
 
 const deleteBook = book => {
@@ -40,30 +41,48 @@ addBook("TDD", "Dulce Woof", "385");
 addBook("JS basics", "Dulce Woof", "425");
 
 // DOM manipulation
-const bookTable = document.querySelector("#books-table");
-for (let i = 0; i < bookArray.length; i++) {
+function renderLibrary() {
+  const bookTable = document.querySelector("#books-table");
+  for (let i = 0; i < bookArray.length; i++) {
+    let row = document.createElement("tr");
+    bookTable.appendChild(row);
+    Object.keys(bookArray[i]).forEach(item => {
+      if (item === "index") return;
+      let cell = document.createElement("td");
+      row.appendChild(cell);
+      cell.innerHTML += bookArray[i][item];
+    });
+    let cell_button = document.createElement("td");
+    row.appendChild(cell_button);
+    let button_icon = document.createElement("button");
+    cell_button.appendChild(button_icon);
+    let delete_icon = document.createElement("i");
+    button_icon.setAttribute("id", bookArray[i].index);
+    button_icon.className = "delete";
+    button_icon.innerHTML = "Delete ";
+    button_icon.appendChild(delete_icon);
+    delete_icon.className = "alternate trash icon";
+  }
+}
+
+function displayBook(book) {
+  const bookTable = document.querySelector("#books-table");
   let row = document.createElement("tr");
   bookTable.appendChild(row);
-  let cell = document.createElement("td");
-  row.appendChild(cell);
-  cell.innerHTML += bookArray[i].title;
-  let cell_author = document.createElement("td");
-  row.appendChild(cell_author);
-  cell_author.innerHTML += bookArray[i].author;
-  let cell_pages = document.createElement("td");
-  row.appendChild(cell_pages);
-  cell_pages.innerHTML += bookArray[i].pages;
-  let cell_status = document.createElement("td");
-  row.appendChild(cell_status);
-  cell_status.innerHTML += bookArray[i].status;
+  Object.keys(book).forEach(item => {
+    if (item === "index") return;
+    let cell = document.createElement("td");
+    row.appendChild(cell);
+    cell.innerHTML += book[item];
+  });
   let cell_button = document.createElement("td");
   row.appendChild(cell_button);
   let button_icon = document.createElement("button");
+  button_icon.innerHTML = "Delete ";
+  button_icon.className = "delete";
   cell_button.appendChild(button_icon);
   let delete_icon = document.createElement("i");
-  button_icon.setAttribute("id", bookArray[i].index);
-  button_icon.className = "delete";
-  button_icon.innerHTML = "Delete";
+  button_icon.setAttribute("id", book.index);
   button_icon.appendChild(delete_icon);
   delete_icon.className = "alternate trash icon";
 }
@@ -79,3 +98,20 @@ Array.from(bookButtons).forEach(function(item) {
     deleteBook(parseInt(item.id));
   });
 });
+
+// Adding a book form
+function renderForm() {
+  const addButton = document.querySelector(".addBook");
+  addButton.addEventListener("click", e => {
+    const form = document.getElementById("add-book-form");
+    const bookNameVal = form["book-name"].value;
+    const bookAuthorVal = form["author-name"].value;
+    const bookPagesVal = form["book-pages"].value;
+    const bookStatus = form["book-status"].value;
+    const book = addBook(bookNameVal, bookAuthorVal, bookPagesVal, bookStatus);
+    renderForm();
+    displayBook(book);
+  });
+}
+renderLibrary();
+renderForm();
