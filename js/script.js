@@ -11,8 +11,10 @@ function Book(title, author, pages, status = "Unread") {
   counter++;
 }
 
-Book.prototype.updateStatus = () => {
+Book.prototype.updateStatus = (button) => {
   this.status = "Read";
+  button.className += 'active';
+
 };
 
 const addBook = (title, author, pages, status) => {
@@ -52,7 +54,15 @@ function renderLibrary() {
       if (item === "index") return;
       let cell = document.createElement("td");
       row.appendChild(cell);
-      cell.innerHTML += bookArray[i][item];
+      if (item == 'status'){
+        let button = document.createElement('button');
+        button.className = "ui toggle button";
+        button.innerHTML += bookArray[i]['status'];
+        cell.appendChild(button);
+        return
+      } else {
+        cell.innerHTML += bookArray[i][item];
+      }
     });
     addDeleteButton(bookArray[i]['index'], row);
   }
@@ -67,7 +77,7 @@ function addDeleteButton(book, row) {
 
   cell.appendChild(button);
   button.setAttribute("id", book['index']);
-  button.className = "delete";
+  button.className = "ui button delete";
   button.innerHTML = "Delete ";
   
   trash_icon.className = "alternate trash icon";
@@ -83,7 +93,15 @@ function displayBook(book) {
     if (item === "index") return;
     let cell = document.createElement("td");
     row.appendChild(cell);
-    cell.innerHTML += book[item];
+    if (item == 'status'){
+      let button = document.createElement('button');
+      button.className = "ui toggle button";
+      button.innerHTML += book[item];
+      cell.appendChild(button);
+      return
+    } else {
+      cell.innerHTML += book[item];
+    }
   });
 
   addDeleteButton(book['index'], row)
