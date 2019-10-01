@@ -11,16 +11,16 @@ function Book(title, author, pages, status = "Unread") {
   counter++;
 }
 
-Book.prototype.updateStatus = (button) => {
+Book.prototype.updateStatus = button => {
   this.status = "Read";
-  button.className += 'active';
-
+  button.className += "active";
 };
 
 const addBook = (title, author, pages, status) => {
   const newBook = new Book(title, author, pages, status);
   bookArray.push(newBook);
   return newBook;
+  // remember to update this in db
 };
 
 const deleteBook = book => {
@@ -54,17 +54,18 @@ function renderLibrary() {
       if (item === "index") return;
       let cell = document.createElement("td");
       row.appendChild(cell);
-      if (item == 'status'){
-        let button = document.createElement('button');
+      if (item == "status") {
+        let button = document.createElement("button");
         button.className = "ui toggle button";
-        button.innerHTML += bookArray[i]['status'];
+        button.innerHTML += bookArray[i]["status"];
         cell.appendChild(button);
-        return
+        return;
       } else {
         cell.innerHTML += bookArray[i][item];
       }
     });
-    addDeleteButton(bookArray[i]['index'], row);
+    updateStatus();
+    addDeleteButton(bookArray[i]["index"], row);
   }
 }
 
@@ -72,52 +73,78 @@ function addDeleteButton(book, row) {
   let cell = document.createElement("td");
   let button = document.createElement("button");
   let trash_icon = document.createElement("i");
-  
+
   row.appendChild(cell);
 
   cell.appendChild(button);
-  button.setAttribute("id", book['index']);
+  button.setAttribute("id", book);
   button.className = "ui button delete";
   button.innerHTML = "Delete ";
-  
+
   trash_icon.className = "alternate trash icon";
   button.appendChild(trash_icon);
+
+  const bookButtons = document.querySelectorAll("#books-table .delete");
+  const listItem = document.querySelectorAll("#books-table");
+  Array.from(bookButtons).forEach(function(item) {
+    item.addEventListener("click", e => {
+      const a = e.target.parentElement;
+      const b = a.parentElement;
+      b.parentNode.removeChild(b);
+      deleteBook(parseInt(item.id));
+    });
+  });
 }
 
 function displayBook(book) {
   const bookTable = document.querySelector("#books-table");
   let row = document.createElement("tr");
   bookTable.appendChild(row);
-  
+
   Object.keys(book).forEach(item => {
     if (item === "index") return;
     let cell = document.createElement("td");
     row.appendChild(cell);
-    if (item == 'status'){
-      let button = document.createElement('button');
-      button.className = "ui toggle button";
-      button.innerHTML += book[item];
+    if (item == "status") {
+      let button = document.createElement("button");
+      button.innerHTML = book[item];
+      if (button.innerHTML == "Read") {
+        button.className = "ui active toggle button";
+      } else {
+        button.className = "ui toggle button";
+      }
       cell.appendChild(button);
-      return
+      return;
     } else {
       cell.innerHTML += book[item];
     }
   });
 
-  addDeleteButton(book['index'], row)
+  addDeleteButton(book["index"], row);
+  updateStatus();
 }
 
-// Adding delete to buttons
-const bookButtons = document.querySelectorAll("#books-table .delete");
-const listItem = document.querySelectorAll("#books-table");
-Array.from(bookButtons).forEach(function (item) {
-  item.addEventListener("click", e => {
-    const a = e.target.parentElement;
-    const b = a.parentElement;
-    b.parentNode.removeChild(b);
-    deleteBook(parseInt(item.id));
+// Adding toggle to read button
+function updateStatus() {
+  const table = document.getElementById("books-table");
+  const statusButton = table.querySelectorAll(".toggle");
+  Array.from(statusButton).forEach(function(item) {
+    item.addEventListener("click", e => {
+      const a = e.target.parentElement;
+      console.log(a);
+      if (item.innerHTML == "Unread") {
+        item.classList.add("active");
+        item.innerHTML = "Read";
+        return;
+      } else {
+        item.classList.remove("active");
+        item.innerHTML = "Unread";
+        return;
+      }
+      // to be updated on db
+    });
   });
-});
+}
 
 // Adding a book form
 function renderForm() {
@@ -127,11 +154,16 @@ function renderForm() {
     const bookNameVal = form["book-name"].value;
     const bookAuthorVal = form["author-name"].value;
     const bookPagesVal = form["book-pages"].value;
-    const bookStatus = form["book-status"].checked ? 'Read' : 'Unread';
+    const bookStatus = form["book-status"].checked ? "Read" : "Unread";
     const res = checkInputs(form);
 
     if (res) {
-      const book = addBook(bookNameVal, bookAuthorVal, bookPagesVal, bookStatus);
+      const book = addBook(
+        bookNameVal,
+        bookAuthorVal,
+        bookPagesVal,
+        bookStatus
+      );
       displayBook(book);
       document.getElementById("add-book-form").reset();
     }
@@ -139,7 +171,11 @@ function renderForm() {
 }
 
 function checkInputs(form) {
-  if (form['book-name'].value == '' || form['author-name'].value == '' || form['book-pages'].value == '') {
+  if (
+    form["book-name"].value == "" ||
+    form["author-name"].value == "" ||
+    form["book-pages"].value == ""
+  ) {
     alert("Fill in all the fields");
     return false;
   }
