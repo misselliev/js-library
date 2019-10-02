@@ -1,3 +1,6 @@
+
+// FUNCTIONALITY
+
 let bookArray = [];
 let counter = 0;
 let index = 0;
@@ -38,54 +41,66 @@ const deleteBook = book => {
   }
 };
 
-addBook("TDD basics", "Dulce Woof", "365");
-addBook("TDD", "Dulce Woof", "385");
-addBook("JS basics", "Dulce Woof", "425");
 
+function checkInputs(form) {
+  if (
+    form["book-name"].value == "" ||
+    form["author-name"].value == "" ||
+    form["book-pages"].value == ""
+  ) {
+    alert("Fill in all the fields");
+    return false;
+  }
+  return true;
+}
+
+
+// HTML
 // DOM manipulation
-function renderLibrary() {
-  const bookTable = document.querySelector("#books-table");
-  let row;
+const bookTable = document.querySelector("#books-table");
 
+function renderLibrary() {
+  let row;
   for (let i = 0; i < bookArray.length; i++) {
     row = document.createElement("tr");
     bookTable.appendChild(row);
+
     Object.keys(bookArray[i]).forEach(item => {
+
       if (item === "index") return;
+
       let cell = document.createElement("td");
       row.appendChild(cell);
+
       if (item == "status") {
         let button = document.createElement("button");
         button.className = "ui toggle button";
-        button.innerHTML += bookArray[i]["status"];
+        button.innerHTML = bookArray[i]["status"];
         cell.appendChild(button);
         return;
+
       } else {
         cell.innerHTML += bookArray[i][item];
       }
     });
+
     updateStatus();
-    addDeleteButton(bookArray[i]["index"], row);
+    renderDeleteButton(bookArray[i]["index"], row);
   }
 }
 
-function addDeleteButton(book, row) {
+function renderDeleteButton(book, row) {
   let cell = document.createElement("td");
   let button = document.createElement("button");
-  let trash_icon = document.createElement("i");
 
   row.appendChild(cell);
-
   cell.appendChild(button);
+
   button.setAttribute("id", book);
   button.className = "ui button delete";
   button.innerHTML = "Delete ";
 
-  trash_icon.className = "alternate trash icon";
-  button.appendChild(trash_icon);
-
   const bookButtons = document.querySelectorAll("#books-table .delete");
-  const listItem = document.querySelectorAll("#books-table");
   Array.from(bookButtons).forEach(function (item) {
     item.addEventListener("click", e => {
       const a = e.target.parentElement;
@@ -97,7 +112,6 @@ function addDeleteButton(book, row) {
 }
 
 function displayBook(book) {
-  const bookTable = document.querySelector("#books-table");
   let row = document.createElement("tr");
   bookTable.appendChild(row);
 
@@ -116,26 +130,27 @@ function displayBook(book) {
       cell.appendChild(button);
       return;
     } else {
-      cell.innerHTML += book[item];
+      cell.innerHTML = book[item];
     }
   });
 
-  addDeleteButton(book["index"], row);
+  renderDeleteButton(book["index"], row);
   updateStatus();
 }
 
 // Adding toggle to read button
 function updateStatus() {
-  const table = document.getElementById("books-table");
-  const statusButton = table.querySelectorAll(".toggle");
+  const statusButton = bookTable.querySelectorAll(".toggle");
+  
   Array.from(statusButton).forEach(function (item) {
     item.addEventListener("click", e => {
       const a = e.target.parentElement;
-      console.log(a);
+
       if (item.innerHTML == "Unread") {
         item.classList.add("active");
         item.innerHTML = "Read";
         return;
+
       } else {
         item.classList.remove("active");
         item.innerHTML = "Unread";
@@ -147,7 +162,7 @@ function updateStatus() {
 }
 
 // Adding a book form
-function renderForm() {
+function addBookForm() {
   const addButton = document.querySelector(".addBook");
   addButton.addEventListener("click", e => {
     const form = document.getElementById("add-book-form");
@@ -165,28 +180,17 @@ function renderForm() {
         bookStatus
       );
       displayBook(book);
-      document.getElementById("add-book-form").reset();
+      form.reset();
     }
   });
 }
 
-function checkInputs(form) {
-  if (
-    form["book-name"].value == "" ||
-    form["author-name"].value == "" ||
-    form["book-pages"].value == ""
-  ) {
-    alert("Fill in all the fields");
-    return false;
-  }
-  return true;
-}
-renderLibrary();
-renderForm();
+
 
 // Opening up addbookForm
 let accordion = document.getElementById("accordion-title");
 let accordionContent = document.getElementById("accordion-content");
+
 accordion.addEventListener("click", e => {
   if (accordion.classList.length == 2) {
     accordion.classList.remove('active');
@@ -196,3 +200,9 @@ accordion.addEventListener("click", e => {
     accordionContent.classList.add("active");
   }
 })
+
+addBook("TDD basics", "Dulce Woof", "365");
+addBook("TDD", "Dulce Woof", "385");
+addBook("JS basics", "Dulce Woof", "425");
+renderLibrary();
+addBookForm();
