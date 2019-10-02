@@ -86,7 +86,7 @@ function addDeleteButton(book, row) {
 
   const bookButtons = document.querySelectorAll("#books-table .delete");
   const listItem = document.querySelectorAll("#books-table");
-  Array.from(bookButtons).forEach(function(item) {
+  Array.from(bookButtons).forEach(function (item) {
     item.addEventListener("click", e => {
       const a = e.target.parentElement;
       const b = a.parentElement;
@@ -128,7 +128,7 @@ function displayBook(book) {
 function updateStatus() {
   const table = document.getElementById("books-table");
   const statusButton = table.querySelectorAll(".toggle");
-  Array.from(statusButton).forEach(function(item) {
+  Array.from(statusButton).forEach(function (item) {
     item.addEventListener("click", e => {
       const a = e.target.parentElement;
       console.log(a);
@@ -183,3 +183,16 @@ function checkInputs(form) {
 }
 renderLibrary();
 renderForm();
+
+// Opening up addbookForm
+let accordion = document.getElementById("accordion-title");
+let accordionContent = document.getElementById("accordion-content");
+accordion.addEventListener("click", e => {
+  if (accordion.classList.length == 2) {
+    accordion.classList.remove('active');
+    accordionContent.classList.remove('active');
+  } else {
+    accordion.classList.add("active");
+    accordionContent.classList.add("active");
+  }
+})
