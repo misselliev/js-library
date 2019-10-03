@@ -1,4 +1,3 @@
-
 // FUNCTIONALITY
 
 let bookArray = [];
@@ -141,7 +140,7 @@ function displayBook(book) {
 // Adding toggle to read button
 function updateStatus() {
   const statusButton = bookTable.querySelectorAll(".toggle");
-  
+
   Array.from(statusButton).forEach(function (item) {
     item.addEventListener("click", e => {
       const a = e.target.parentElement;
