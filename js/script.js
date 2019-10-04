@@ -17,13 +17,13 @@ const addBook = (title, author, pages, status) => {
   const newBook = new Book(title, author, pages, status);
   bookArray.push(newBook);
   return newBook;
-  // remember to update this in db
 };
 
 const deleteBook = book => {
+  const fila = book.parentElement.parentElement;
   let temp;
   for (let i = 0; i < bookArray.length; i++) {
-    if (book == bookArray[i].index) {
+    if (book.id == bookArray[i].index) {
       temp = bookArray[i];
       break;
     }
@@ -33,8 +33,8 @@ const deleteBook = book => {
     bookArray.splice(idx, 1);
     counter--;
   }
+  fila.style.display = "none";
 };
-
 
 function checkInputs(form) {
   if (
@@ -48,7 +48,6 @@ function checkInputs(form) {
   return true;
 }
 
-
 // HTML
 // DOM manipulation
 const bookTable = document.querySelector("#books-table");
@@ -60,7 +59,6 @@ function renderLibrary() {
     bookTable.appendChild(row);
 
     Object.keys(bookArray[i]).forEach(item => {
-
       if (item === "index") return;
 
       let cell = document.createElement("td");
@@ -68,47 +66,43 @@ function renderLibrary() {
 
       if (item == "status") {
         let button = document.createElement("button");
-        button.setAttribute('id', bookArray[i].index);
+        button.setAttribute("id", bookArray[i].index);
         button.className = "ui toggle button";
         button.innerHTML = bookArray[i]["status"];
         cell.appendChild(button);
+        button.addEventListener("click", e => {
+          updateStatus(button);
+        });
         return;
-
       } else {
         cell.innerHTML += bookArray[i][item];
       }
     });
 
-    updateStatus();
-    renderDeleteButton(bookArray[i]["index"], row);
+    addDeleteButton(bookArray[i], row);
   }
 }
 
-function renderDeleteButton(book, row) {
+function addDeleteButton(book, row) {
   let cell = document.createElement("td");
   let button = document.createElement("button");
 
   row.appendChild(cell);
   cell.appendChild(button);
 
-  button.setAttribute("id", book);
+  button.setAttribute("id", book.index);
   button.className = "ui button delete";
   button.innerHTML = "Delete ";
 
-  const bookButtons = document.querySelectorAll("#books-table .delete");
-  Array.from(bookButtons).forEach(function (item) {
-    item.addEventListener("click", e => {
-      const a = e.target.parentElement;
-      const b = a.parentElement;
-      b.parentNode.removeChild(b);
-      deleteBook(parseInt(item.id));
-    });
+  button.addEventListener("click", e => {
+    deleteBook(button);
   });
 }
 
 function displayBook(book) {
   let row = document.createElement("tr");
   bookTable.appendChild(row);
+  let tempIndex = book.index;
 
   Object.keys(book).forEach(item => {
     if (item === "index") return;
@@ -116,7 +110,7 @@ function displayBook(book) {
     row.appendChild(cell);
     if (item == "status") {
       let button = document.createElement("button");
-      button.setAttribute('id', item.index);
+      button.setAttribute("id", tempIndex);
       button.innerHTML = book[item];
       if (button.innerHTML == "Read") {
         button.className = "ui active toggle button";
@@ -124,42 +118,36 @@ function displayBook(book) {
         button.className = "ui toggle button";
       }
       cell.appendChild(button);
+      button.addEventListener("click", e => {
+        updateStatus(button);
+      });
       return;
     } else {
       cell.innerHTML = book[item];
     }
   });
 
-  renderDeleteButton(book["index"], row);
-  updateStatus();
+  addDeleteButton(book, row);
 }
 
 // Adding toggle to read button
-function updateStatus() {
-  const statusButton = bookTable.querySelectorAll(".toggle");
+function updateStatus(button) {
+  if (button.innerHTML == "Unread") {
+    button.classList.add("active");
+    button.innerHTML = "Read";
+  } else {
+    button.classList.remove("active");
+    button.innerHTML = "Unread";
+  }
 
-  Array.from(statusButton).forEach(function (item) {
-    item.addEventListener("click", e => {
-      const a = e.target.parentElement;
-
-      if (item.innerHTML == "Unread") {
-        item.classList.add("active");
-        item.innerHTML = "Read";
-      } else {
-        item.classList.remove("active");
-        item.innerHTML = "Unread";
-      }
-
-      let book;
-      for (let i = 0; i < bookArray.length; i++) {
-        if (a.firstElementChild.id == bookArray[i].index) {
-          book = bookArray[i];
-          break;
-        }
-      }
-      book.status = (book.status == "Read") ? 'Unread' : 'Read';
-    });
-  });
+  let book;
+  for (let i = 0; i < bookArray.length; i++) {
+    if (button.id == bookArray[i].index) {
+      book = bookArray[i];
+      break;
+    }
+  }
+  book.status = book.status == "Read" ? "Unread" : "Read";
 }
 
 // Adding a book form
@@ -192,13 +180,13 @@ let accordionContent = document.getElementById("accordion-content");
 
 accordion.addEventListener("click", e => {
   if (accordion.classList.length == 2) {
-    accordion.classList.remove('active');
-    accordionContent.classList.remove('active');
+    accordion.classList.remove("active");
+    accordionContent.classList.remove("active");
   } else {
     accordion.classList.add("active");
     accordionContent.classList.add("active");
   }
-})
+});
 
 addBook("TDD basics", "Dulce Woof", "365");
 addBook("TDD cryptics", "Dulce Lion's Heart", "385");
