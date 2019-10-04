@@ -13,11 +13,6 @@ function Book(title, author, pages, status = "Unread") {
   counter++;
 }
 
-Book.prototype.updateStatus = button => {
-  this.status = "Read";
-  button.className += "active";
-};
-
 const addBook = (title, author, pages, status) => {
   const newBook = new Book(title, author, pages, status);
   bookArray.push(newBook);
@@ -73,6 +68,7 @@ function renderLibrary() {
 
       if (item == "status") {
         let button = document.createElement("button");
+        button.setAttribute('id', bookArray[i].index);
         button.className = "ui toggle button";
         button.innerHTML = bookArray[i]["status"];
         cell.appendChild(button);
@@ -120,6 +116,7 @@ function displayBook(book) {
     row.appendChild(cell);
     if (item == "status") {
       let button = document.createElement("button");
+      button.setAttribute('id', item.index);
       button.innerHTML = book[item];
       if (button.innerHTML == "Read") {
         button.className = "ui active toggle button";
@@ -148,14 +145,19 @@ function updateStatus() {
       if (item.innerHTML == "Unread") {
         item.classList.add("active");
         item.innerHTML = "Read";
-        return;
-
       } else {
         item.classList.remove("active");
         item.innerHTML = "Unread";
-        return;
       }
-      // to be updated on db
+
+      let book;
+      for (let i = 0; i < bookArray.length; i++) {
+        if (a.firstElementChild.id == bookArray[i].index) {
+          book = bookArray[i];
+          break;
+        }
+      }
+      book.status = (book.status == "Read") ? 'Unread' : 'Read';
     });
   });
 }
@@ -184,8 +186,6 @@ function addBookForm() {
   });
 }
 
-
-
 // Opening up addbookForm
 let accordion = document.getElementById("accordion-title");
 let accordionContent = document.getElementById("accordion-content");
@@ -201,7 +201,7 @@ accordion.addEventListener("click", e => {
 })
 
 addBook("TDD basics", "Dulce Woof", "365");
-addBook("TDD", "Dulce Woof", "385");
+addBook("TDD cryptics", "Dulce Lion's Heart", "385");
 addBook("JS basics", "Dulce Woof", "425");
 renderLibrary();
 addBookForm();
