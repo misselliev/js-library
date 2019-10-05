@@ -64,7 +64,7 @@ function checkInputs(form) {
   return true;
 }
 
-// DOM manipulation
+//DOM manipulation
 const bookTable = document.querySelector('#books-table');
 
 function addDeleteButton(book, row) {
