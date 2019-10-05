@@ -136,12 +136,7 @@ function addBookForm() {
     const res = checkInputs(form);
 
     if (res) {
-      const book = addBook(
-        bookNameVal,
-        bookAuthorVal,
-        bookPagesVal,
-        bookStatus,
-      );
+      const book = addBook(bookNameVal, bookAuthorVal, bookPagesVal, bookStatus);
       displayBook(book);
       form.reset();
     }
