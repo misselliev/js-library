@@ -37,6 +37,11 @@ const deleteBook = (book) => {
   fila.style.display = 'none';
 };
 
+
+function alertMe(str) {
+  alert(str);
+}
+
 function checkInputs(form) {
   if (
     form['book-name'].value === ''
@@ -47,10 +52,6 @@ function checkInputs(form) {
     return false;
   }
   return true;
-}
-
-function alertMe(str) {
-  alert(str)
 }
 
 // HTML
