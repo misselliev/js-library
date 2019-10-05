@@ -68,7 +68,7 @@ function addDeleteButton(book, row) {
   button.className = 'ui button delete';
   button.innerHTML = 'Delete';
 
-  button.addEventListener('click', (event) => {
+  button.addEventListener('click', () => {
     deleteBook(button);
   });
 }
@@ -113,7 +113,7 @@ function displayBook(book) {
         button.className = 'ui toggle button';
       }
       cell.appendChild(button);
-      button.addEventListener('click', (event) => {
+      button.addEventListener('click', () => {
         updateStatus(button);
       });
     } else {
@@ -127,7 +127,7 @@ function displayBook(book) {
 // Adding a book form
 function addBookForm() {
   const addButton = document.querySelector('.addBook');
-  addButton.addEventListener('click', (event) => {
+  addButton.addEventListener('click', () => {
     const form = document.getElementById('add-book-form');
     const bookNameVal = form['book-name'].value;
     const bookAuthorVal = form['author-name'].value;
@@ -152,7 +152,7 @@ function addBookForm() {
 const accordion = document.getElementById('accordion-title');
 const accordionContent = document.getElementById('accordion-content');
 
-accordion.addEventListener('click', (event) => {
+accordion.addEventListener('click', () => {
   if (accordion.classList.length === 2) {
     accordion.classList.remove('active');
     accordionContent.classList.remove('active');
@@ -180,7 +180,7 @@ function renderLibrary() {
         button.className = 'ui toggle button';
         button.innerHTML = bookArray[i].status;
         cell.appendChild(button);
-        button.addEventListener('click', (event) => {
+        button.addEventListener('click', () => {
           updateStatus(button);
         });
       } else {
