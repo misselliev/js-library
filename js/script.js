@@ -38,8 +38,17 @@ const deleteBook = (book) => {
 };
 
 
-function alertMe(str) {
-  alert(str);
+function alertMe(status) {
+  const type = (status === true) ? 'green' : 'warning';
+  const str = status ? 'Book saved' : 'Fill in all the fields';
+  const title = document.getElementById('accordion-title');
+  const alert = document.createElement('div');
+  alert.className = `ui floating ${type} message`;
+  alert.innerHTML = str;
+  title.appendChild(alert);
+  setTimeout(() => {
+    alert.style.display = 'none'
+  }, 2000)
 }
 
 function checkInputs(form) {
@@ -48,9 +57,10 @@ function checkInputs(form) {
     || form['author-name'].value === ''
     || form['book-pages'].value === ''
   ) {
-    alertMe('Fill in all the fields');
+    alertMe(false);
     return false;
   }
+  alertMe(true);
   return true;
 }
 
