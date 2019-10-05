@@ -47,8 +47,8 @@ function alertMe(status) {
   alert.innerHTML = str;
   title.appendChild(alert);
   setTimeout(() => {
-    alert.style.display = 'none'
-  }, 2000)
+    alert.style.display = 'none';
+  }, 2000);
 }
 
 function checkInputs(form) {
@@ -64,7 +64,6 @@ function checkInputs(form) {
   return true;
 }
 
-// HTML
 // DOM manipulation
 const bookTable = document.querySelector('#books-table');
 
