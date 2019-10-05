@@ -24,7 +24,7 @@ const deleteBook = (book) => {
   const fila = book.parentElement.parentElement;
   let temp;
   for (let i = 0; i < bookArray.length; i += 1) {
-    if (parseInt(book.id) === bookArray[i].index) {
+    if (parseInt(book.id, 10) === bookArray[i].index) {
       temp = bookArray[i];
       break;
     }
@@ -43,10 +43,14 @@ function checkInputs(form) {
     || form['author-name'].value === ''
     || form['book-pages'].value === ''
   ) {
-    alert('Fill in all the fields');
+    alertMe('Fill in all the fields');
     return false;
   }
   return true;
+}
+
+function alertMe(str) {
+  alert(str)
 }
 
 // HTML
@@ -81,12 +85,43 @@ function updateStatus(button) {
 
   let book;
   for (let i = 0; i < bookArray.length; i += 1) {
-    if (parseInt(button.id) === bookArray[i].index) {
+    if (parseInt(button.id, 10) === bookArray[i].index) {
       book = bookArray[i];
       break;
     }
   }
   book.status = book.status === 'Read' ? 'Unread' : 'Read';
+}
+
+function displayBook(book) {
+  const row = document.createElement('tr');
+  bookTable.appendChild(row);
+  const tempIndex = book.index;
+
+  Object.keys(book).forEach((item) => {
+    if (item === 'index') return;
+
+    const cell = document.createElement('td');
+    row.appendChild(cell);
+    if (item === 'status') {
+      const button = document.createElement('button');
+      button.setAttribute('id', tempIndex);
+      button.innerHTML = book[item];
+      if (button.innerHTML === 'Read') {
+        button.className = 'ui active toggle button';
+      } else {
+        button.className = 'ui toggle button';
+      }
+      cell.appendChild(button);
+      button.addEventListener('click', (event) => {
+        updateStatus(button);
+      });
+    } else {
+      cell.innerHTML = book[item];
+    }
+  });
+
+  addDeleteButton(book, row);
 }
 
 // Adding a book form
@@ -105,7 +140,7 @@ function addBookForm() {
         bookNameVal,
         bookAuthorVal,
         bookPagesVal,
-        bookStatus
+        bookStatus,
       );
       displayBook(book);
       form.reset();
@@ -155,37 +190,6 @@ function renderLibrary() {
 
     addDeleteButton(bookArray[i], row);
   }
-}
-
-function displayBook(book) {
-  const row = document.createElement('tr');
-  bookTable.appendChild(row);
-  const tempIndex = book.index;
-
-  Object.keys(book).forEach((item) => {
-    if (item === 'index') return;
-
-    const cell = document.createElement('td');
-    row.appendChild(cell);
-    if (item === 'status') {
-      const button = document.createElement('button');
-      button.setAttribute('id', tempIndex);
-      button.innerHTML = book[item];
-      if (button.innerHTML === 'Read') {
-        button.className = 'ui active toggle button';
-      } else {
-        button.className = 'ui toggle button';
-      }
-      cell.appendChild(button);
-      button.addEventListener('click', (event) => {
-        updateStatus(button);
-      });
-    } else {
-      cell.innerHTML = book[item];
-    }
-  });
-
-  addDeleteButton(book, row);
 }
 
 addBook('TDD basics', 'Dulce Woof', '365');
