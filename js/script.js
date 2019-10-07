@@ -168,11 +168,12 @@ accordion.addEventListener('click', () => {
 
 function renderLibrary() {
   let row;
-  for (let i = 0; i < bookArray.length; i += 1) {
+  bookArray.forEach((book) => {
+
     row = document.createElement('tr');
     bookTable.appendChild(row);
 
-    Object.keys(bookArray[i]).forEach((item) => {
+    Object.keys(book).forEach((item) => {
       if (item === 'index') return;
 
       const cell = document.createElement('td');
@@ -180,20 +181,20 @@ function renderLibrary() {
 
       if (item === 'status') {
         const button = document.createElement('button');
-        button.setAttribute('id', bookArray[i].index);
+        button.setAttribute('id', book.index);
         button.className = 'ui toggle button';
-        button.innerHTML = bookArray[i].status;
+        button.innerHTML = book.status;
         cell.appendChild(button);
         button.addEventListener('click', () => {
           updateStatus(button);
         });
       } else {
-        cell.innerHTML += bookArray[i][item];
+        cell.innerHTML += book[item];
       }
     });
 
-    addDeleteButton(bookArray[i], row);
-  }
+    addDeleteButton(book, row);
+  })
 }
 
 addBook('TDD basics', 'Dulce Woof', '365');
