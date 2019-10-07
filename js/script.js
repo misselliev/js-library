@@ -169,7 +169,6 @@ accordion.addEventListener('click', () => {
 function renderLibrary() {
   let row;
   bookArray.forEach((book) => {
-
     row = document.createElement('tr');
     bookTable.appendChild(row);
 
@@ -194,7 +193,7 @@ function renderLibrary() {
     });
 
     addDeleteButton(book, row);
-  })
+  });
 }
 
 addBook('TDD basics', 'Dulce Woof', '365');
