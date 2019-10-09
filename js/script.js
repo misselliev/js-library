@@ -20,7 +20,7 @@ const addBook = (title, author, pages, status) => {
   return newBook;
 };
 
-const deleteBook = (book) => {
+const deleteBook = book => {
   const fila = book.parentElement.parentElement;
   let temp;
   for (let i = 0; i < bookArray.length; i += 1) {
@@ -37,9 +37,8 @@ const deleteBook = (book) => {
   fila.style.display = 'none';
 };
 
-
 function alertMe(status) {
-  const type = (status === true) ? 'green' : 'warning';
+  const type = status === true ? 'green' : 'warning';
   const str = status ? 'Book saved' : 'Fill in all the fields';
   const title = document.getElementById('accordion-title');
   const alert = document.createElement('div');
@@ -53,9 +52,9 @@ function alertMe(status) {
 
 function checkInputs(form) {
   if (
-    form['book-name'].value === ''
-    || form['author-name'].value === ''
-    || form['book-pages'].value === ''
+    form['book-name'].value === '' ||
+    form['author-name'].value === '' ||
+    form['book-pages'].value === ''
   ) {
     alertMe(false);
     return false;
@@ -74,7 +73,7 @@ function addDeleteButton(book, row) {
   cell.appendChild(button);
 
   button.setAttribute('id', book.index);
-  button.className = 'ui button delete';
+  button.className = 'ui colored-btn button delete';
   button.innerHTML = 'Delete';
 
   button.addEventListener('click', () => {
@@ -107,7 +106,7 @@ function displayBook(book) {
   bookTable.appendChild(row);
   const tempIndex = book.index;
 
-  Object.keys(book).forEach((item) => {
+  Object.keys(book).forEach(item => {
     if (item === 'index') return;
 
     const cell = document.createElement('td');
@@ -119,7 +118,7 @@ function displayBook(book) {
       if (button.innerHTML === 'Read') {
         button.className = 'ui active toggle button';
       } else {
-        button.className = 'ui toggle button';
+        button.className = 'ui toggle colored-btn button';
       }
       cell.appendChild(button);
       button.addEventListener('click', () => {
@@ -145,7 +144,12 @@ function addBookForm() {
     const res = checkInputs(form);
 
     if (res) {
-      const book = addBook(bookNameVal, bookAuthorVal, bookPagesVal, bookStatus);
+      const book = addBook(
+        bookNameVal,
+        bookAuthorVal,
+        bookPagesVal,
+        bookStatus
+      );
       displayBook(book);
       form.reset();
     }
@@ -168,11 +172,11 @@ accordion.addEventListener('click', () => {
 
 function renderLibrary() {
   let row;
-  bookArray.forEach((book) => {
+  bookArray.forEach(book => {
     row = document.createElement('tr');
     bookTable.appendChild(row);
 
-    Object.keys(book).forEach((item) => {
+    Object.keys(book).forEach(item => {
       if (item === 'index') return;
 
       const cell = document.createElement('td');
@@ -181,7 +185,7 @@ function renderLibrary() {
       if (item === 'status') {
         const button = document.createElement('button');
         button.setAttribute('id', book.index);
-        button.className = 'ui toggle button';
+        button.className = 'ui toggle colored-btn button';
         button.innerHTML = book.status;
         cell.appendChild(button);
         button.addEventListener('click', () => {
@@ -197,7 +201,7 @@ function renderLibrary() {
 }
 
 addBook('TDD basics', 'Dulce Woof', '365');
-addBook('TDD cryptics', 'Dulce Lion\'s Heart', '385');
+addBook('TDD cryptics', "Dulce Lion's Heart", '385');
 addBook('JS basics', 'Dulce Woof', '425');
 renderLibrary();
 addBookForm();

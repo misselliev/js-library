@@ -10,3 +10,24 @@
 .top {
   padding-bottom: 15px !important;
 }
+
+.wall {
+  background-image: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1441&q=80);
+}
+
+.display {
+  background-color: rgba(222, 184, 135, .5) !important;
+}
+
+.burly {
+  background-color: burlywood;
+  color: cornsilk;
+}
+
+.colored-btn {
+  background-color: navajowhite !important;
+}
+
+#accordion {
+  padding: 10px 10px 10px 10px;
+}

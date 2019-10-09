@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/reset.css" />
+    <link rel="shortcut icon" href="css/book.ico" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -20,15 +21,17 @@
     <title>Library App</title>
   </head>
 
-  <body>
+  <body class="wall">
     <div id="main-container">
-      <h2 class="ui center aligned icon header top">
-        <i class="circular book icon"></i>
-        Woof Library
-      </h2>
+      <div class="header">
+        <h2 class="ui center aligned icon header top">
+          <i class="circular burly book icon"></i>
+          Woof Library
+        </h2>
+      </div>
       <div class="ui grid">
         <div class="thirteen wide column">
-          <table class="ui striped table" id="books-table">
+          <table class="ui basic table display" id="books-table">
             <thead>
               <tr>
                 <th>Name</th>
@@ -41,7 +44,7 @@
           </table>
         </div>
         <div class="three wide column">
-          <div class="ui accordion" id="accordion">
+          <div class="ui accordion display" id="accordion">
             <div class="title" id="accordion-title">
               <i class="dropdown icon"></i>
               Add a Book
@@ -72,7 +75,7 @@
                   </div>
                 </div>
                 <button
-                  class="ui button addBook"
+                  class="ui button colored-btn addBook"
                   type="submit"
                   href="javascript:void(0);"
                 >
