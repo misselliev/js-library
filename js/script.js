@@ -52,8 +52,8 @@ function alertMe(status) {
 
 function checkInputs(form) {
   if (
-    form['book-name'].value === '' 
-    || form['author-name'].value === '' 
+    form['book-name'].value === ''
+    || form['author-name'].value === ''
     || form['book-pages'].value === ''
   ) {
     alertMe(false);
