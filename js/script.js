@@ -1,6 +1,6 @@
 // FUNCTIONALITY
 
-let bookArray = [];
+const bookArray = [];
 let counter = 0;
 let index = 0;
 
@@ -32,7 +32,7 @@ const deleteBook = (book) => {
   const idx = bookArray.indexOf(temp);
   if (idx > -1) {
     bookArray.splice(idx, 1);
-    counter--;
+    counter -= 1;
   }
   fila.style.display = 'none';
 };
