@@ -116,7 +116,7 @@ function displayBook(book) {
       button.setAttribute('id', tempIndex);
       button.innerHTML = book[item];
       if (button.innerHTML === 'Read') {
-        button.className = 'ui orange colored-btn change-color toggle button';
+        button.className = 'ui colored-btn change-color toggle button';
       } else {
         button.className = 'ui toggle colored-btn button';
       }
