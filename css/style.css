@@ -35,3 +35,7 @@
 .text {
   color: wheat !important;
 }
+
+.change-color {
+  color: orange !important;
+}

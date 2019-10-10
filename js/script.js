@@ -84,10 +84,10 @@ function addDeleteButton(book, row) {
 // Adding toggle to read button
 function updateStatus(button) {
   if (button.innerHTML === 'Unread') {
-    button.classList.add('active');
+    button.classList.add('change-color');
     button.innerHTML = 'Read';
   } else {
-    button.classList.remove('active');
+    button.classList.remove('change-color');
     button.innerHTML = 'Unread';
   }
 
@@ -116,7 +116,7 @@ function displayBook(book) {
       button.setAttribute('id', tempIndex);
       button.innerHTML = book[item];
       if (button.innerHTML === 'Read') {
-        button.className = 'ui active colored-btn toggle button';
+        button.className = 'ui orange colored-btn change-color toggle button';
       } else {
         button.className = 'ui toggle colored-btn button';
       }
@@ -144,11 +144,7 @@ function addBookForm() {
     const res = checkInputs(form);
 
     if (res) {
-      const book = addBook(
-        bookNameVal,
-        bookAuthorVal,
-        bookPagesVal,
-        bookStatus, );
+      const book = addBook(bookNameVal, bookAuthorVal, bookPagesVal, bookStatus);
       displayBook(book);
       form.reset();
     }
