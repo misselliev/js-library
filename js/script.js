@@ -148,8 +148,7 @@ function addBookForm() {
         bookNameVal,
         bookAuthorVal,
         bookPagesVal,
-        bookStatus,
-      );
+        bookStatus, );
       displayBook(book);
       form.reset();
     }
