@@ -20,7 +20,7 @@ const addBook = (title, author, pages, status) => {
   return newBook;
 };
 
-const deleteBook = book => {
+const deleteBook = (book) => {
   const fila = book.parentElement.parentElement;
   let temp;
   for (let i = 0; i < bookArray.length; i += 1) {
@@ -106,7 +106,7 @@ function displayBook(book) {
   bookTable.appendChild(row);
   const tempIndex = book.index;
 
-  Object.keys(book).forEach(item => {
+  Object.keys(book).forEach((item) => {
     if (item === 'index') return;
 
     const cell = document.createElement('td');
@@ -148,7 +148,7 @@ function addBookForm() {
         bookNameVal,
         bookAuthorVal,
         bookPagesVal,
-        bookStatus
+        bookStatus,
       );
       displayBook(book);
       form.reset();
@@ -172,11 +172,11 @@ accordion.addEventListener('click', () => {
 
 function renderLibrary() {
   let row;
-  bookArray.forEach(book => {
+  bookArray.forEach((book) => {
     row = document.createElement('tr');
     bookTable.appendChild(row);
 
-    Object.keys(book).forEach(item => {
+    Object.keys(book).forEach((item) => {
       if (item === 'index') return;
 
       const cell = document.createElement('td');
