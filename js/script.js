@@ -37,9 +37,8 @@ const deleteBook = (book) => {
   fila.style.display = 'none';
 };
 
-
 function alertMe(status) {
-  const type = (status === true) ? 'green' : 'warning';
+  const type = status === true ? 'green' : 'warning';
   const str = status ? 'Book saved' : 'Fill in all the fields';
   const title = document.getElementById('accordion-title');
   const alert = document.createElement('div');
@@ -74,7 +73,7 @@ function addDeleteButton(book, row) {
   cell.appendChild(button);
 
   button.setAttribute('id', book.index);
-  button.className = 'ui button delete';
+  button.className = 'ui colored-btn button delete';
   button.innerHTML = 'Delete';
 
   button.addEventListener('click', () => {
@@ -85,10 +84,10 @@ function addDeleteButton(book, row) {
 // Adding toggle to read button
 function updateStatus(button) {
   if (button.innerHTML === 'Unread') {
-    button.classList.add('active');
+    button.classList.add('change-color');
     button.innerHTML = 'Read';
   } else {
-    button.classList.remove('active');
+    button.classList.remove('change-color');
     button.innerHTML = 'Unread';
   }
 
@@ -117,9 +116,9 @@ function displayBook(book) {
       button.setAttribute('id', tempIndex);
       button.innerHTML = book[item];
       if (button.innerHTML === 'Read') {
-        button.className = 'ui active toggle button';
+        button.className = 'ui orange colored-btn change-color toggle button';
       } else {
-        button.className = 'ui toggle button';
+        button.className = 'ui toggle colored-btn button';
       }
       cell.appendChild(button);
       button.addEventListener('click', () => {
@@ -181,7 +180,7 @@ function renderLibrary() {
       if (item === 'status') {
         const button = document.createElement('button');
         button.setAttribute('id', book.index);
-        button.className = 'ui toggle button';
+        button.className = 'ui toggle colored-btn button';
         button.innerHTML = book.status;
         cell.appendChild(button);
         button.addEventListener('click', () => {
@@ -197,7 +196,7 @@ function renderLibrary() {
 }
 
 addBook('TDD basics', 'Dulce Woof', '365');
-addBook('TDD cryptics', 'Dulce Lion\'s Heart', '385');
+addBook('TDD cryptics', "Dulce Lion's Heart", '385');
 addBook('JS basics', 'Dulce Woof', '425');
 renderLibrary();
 addBookForm();
