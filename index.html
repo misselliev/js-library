@@ -5,7 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="shortcut icon" href="css/book.ico" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="semantic/dist/semantic.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="semantic/dist/semantic.min.js"></script>
     <title>Library App</title>
   </head>
-  <body></body>
+
+  <body class="wall">
+    <div id="main-container">
+      <div class="header">
+        <h2 class="ui center aligned icon header top text">
+          <i class="circular burly book icon"></i>
+          Woof Library
+        </h2>
+      </div>
+      <div class="ui grid">
+        <div class="thirteen wide column">
+          <table class="ui basic table display" id="books-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>Status</th>
+                <th>Delete?</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="three wide column">
+          <div class="ui accordion display" id="accordion">
+            <div class="title" id="accordion-title">
+              <i class="dropdown icon"></i>
+              Add a Book
+            </div>
+            <div class="content" id="accordion-content">
+              <form class="ui form" id="add-book-form" onsubmit="return false">
+                <div class="field">
+                  <label>Book Name</label>
+                  <input type="text" id="book-name" placeholder="Book name" />
+                </div>
+                <div class="field">
+                  <label>Author</label>
+                  <input type="text" id="author-name" placeholder="Author" />
+                </div>
+                <div class="field">
+                  <label>Pages</label>
+                  <input type="number" id="book-pages" placeholder="Pages" />
+                </div>
+                <div class="field">
+                  <div class="checkbox" id="book-checked">
+                    <input
+                      type="checkbox"
+                      tabindex="0"
+                      class="hidden"
+                      id="book-status"
+                    />
+                    <label>I have read this book</label>
+                  </div>
+                </div>
+                <button
+                  class="ui button colored-btn addBook"
+                  type="submit"
+                  href="javascript:void(0);"
+                >
+                  Add Book
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
 </html>
